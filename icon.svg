@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#1a1a2e"/>
+  <g fill="#4ecca3">
+    <!-- Treadmill base -->
+    <rect x="80" y="320" width="352" height="40" rx="8"/>
+    <!-- Running belt -->
+    <rect x="100" y="280" width="312" height="50" rx="4" fill="#16213e"/>
+    <rect x="120" y="290" width="272" height="30" rx="2" fill="#0f0f23"/>
+    <!-- Console -->
+    <rect x="180" y="120" width="152" height="100" rx="8"/>
+    <rect x="195" y="135" width="122" height="70" rx="4" fill="#0f0f23"/>
+    <!-- Speed display -->
+    <text x="256" y="185" text-anchor="middle" font-family="sans-serif" font-size="36" font-weight="bold" fill="#4ecca3">9.0</text>
+    <!-- Handles -->
+    <rect x="100" y="140" width="20" height="150" rx="4"/>
+    <rect x="392" y="140" width="20" height="150" rx="4"/>
+    <!-- Bluetooth icon -->
+    <path d="M256 380 l-20 -20 l20 -20 l20 20 z" fill="#4ecca3"/>
+    <path d="M256 360 v40 l15 -15 l-15 -15 l15 -15 l-15 -15 v40" stroke="#4ecca3" stroke-width="4" fill="none"/>
+  </g>
+</svg>

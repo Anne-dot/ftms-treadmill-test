@@ -1,0 +1,313 @@
+/* ===========================================
+   FTMS Treadmill Test - Styles
+   Mobile-first, ADHD-friendly design
+   =========================================== */
+
+/* --- Reset & Base --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    background: #1a1a1a;
+    color: #eee;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* --- Typography --- */
+h1 {
+    color: #eee;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+h2 {
+    color: #aaa;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+a {
+    color: #7eb8a8;
+}
+
+/* --- Cards --- */
+.card {
+    background: #252530;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* --- Status --- */
+.status {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.status.waiting { background: #333; }
+.status.searching { background: #3a4550; }
+.status.connected { background: #3a4a40; }
+.status.error { background: #4a3a3a; }
+
+/* --- Buttons --- */
+button {
+    background: #3a5a50;
+    color: #eee;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    margin: 8px 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background: #4a6a60;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Data Grid --- */
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.data-item {
+    background: #1f1f1f;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.data-label {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.data-value {
+    color: #eee;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.data-unit {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+/* --- Services List --- */
+.services-list {
+    background: #1f1f1f;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.service-item {
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.service-item strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.service-item small {
+    font-family: monospace;
+    color: #888;
+    word-break: break-all;
+}
+
+.service-ftms {
+    background: #2a4a40;
+}
+
+.service-other {
+    background: #333;
+}
+
+/* --- Workouts List --- */
+.workouts-list {
+    background: #1f1f1f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.workout-item {
+    padding: 12px;
+    margin: 8px 0;
+    background: #1a1a2e;
+    border-radius: 6px;
+    border-left: 4px solid #555;
+}
+
+.workout-date {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.workout-stats {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.workout-stat {
+    font-size: 0.9rem;
+}
+
+.workout-stat strong {
+    color: #ccc;
+}
+
+/* --- Log --- */
+#log {
+    background: #1f1f1f;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.8rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    margin: 4px 0;
+    padding: 2px 0;
+}
+
+.log-success { color: #7a9; }
+.log-error { color: #b66; }
+.log-info { color: #888; }
+.log-warn { color: #a96; }
+
+/* --- Placeholder Text --- */
+.placeholder {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 8px;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    margin-top: 24px;
+    padding: 16px;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+footer p {
+    margin: 4px 0;
+}
+
+/* --- Accordion --- */
+.accordion {
+    background: #252530;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.accordion summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #aaa;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion summary::after {
+    content: '+';
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.accordion[open] summary::after {
+    content: '−';
+}
+
+.accordion-content {
+    padding: 0 16px 16px;
+    color: #aaa;
+}
+
+.accordion-content ol {
+    margin: 0 0 12px 20px;
+}
+
+.accordion-content li {
+    margin: 6px 0;
+}
+
+.accordion-content p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* --- Browser Help --- */
+.browser-help {
+    background: #2a2a2a;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.browser-help ul {
+    margin: 8px 0 8px 20px;
+}
+
+.browser-help li {
+    margin: 6px 0;
+}
+
+.browser-help p {
+    margin: 8px 0;
+}
+
+/* --- Hidden --- */
+[hidden] {
+    display: none !important;
+}

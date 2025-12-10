@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Testi, kas su jõusaali jooksulint toetab avatud FTMS standardit">
+    <title>FTMS Treadmill Test</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>FTMS Treadmill Test</h1>
+    </header>
+
+    <main>
+        <!-- Help Accordion -->
+        <details class="accordion">
+            <summary>Kuidas kasutada?</summary>
+            <div class="accordion-content">
+                <ol>
+                    <li>Mine jõusaalis jooksulinidi juurde</li>
+                    <li>Lülita jooksulint sisse</li>
+                    <li>Vajuta "Ühenda jooksulindiga"</li>
+                    <li>Vali Bluetooth nimekirjast oma masin</li>
+                    <li>Alusta treenimist - andmed ilmuvad automaatselt</li>
+                    <li>Lõpus vajuta "Salvesta treening"</li>
+                </ol>
+                <p><strong>Android:</strong> Chrome brauser<br>
+                <strong>iPhone:</strong> Bluefy brauser</p>
+            </div>
+        </details>
+
+        <!-- Connection Card -->
+        <section class="card" id="connectionCard">
+            <div id="status" class="status waiting">Ootab ühendust...</div>
+            <button id="connectBtn">Ühenda jooksulindiga</button>
+            <button id="disconnectBtn" disabled>Katkesta ühendus</button>
+        </section>
+
+        <!-- Live Data Card -->
+        <section class="card" id="dataCard" hidden>
+            <h2>Reaalajas andmed</h2>
+            <div class="data-grid">
+                <div class="data-item">
+                    <span class="data-label">Kiirus</span>
+                    <span class="data-value" id="speed">--</span>
+                    <span class="data-unit">km/h</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Distants</span>
+                    <span class="data-value" id="distance">--</span>
+                    <span class="data-unit">m</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Aeg</span>
+                    <span class="data-value" id="time">--</span>
+                    <span class="data-unit">sek</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Kalle</span>
+                    <span class="data-value" id="incline">--</span>
+                    <span class="data-unit">%</span>
+                </div>
+            </div>
+            <button id="saveWorkoutBtn">Salvesta treening</button>
+        </section>
+
+        <!-- Services Card -->
+        <section class="card">
+            <h2>Leitud teenused</h2>
+            <div id="services" class="services-list">
+                <p class="placeholder">Ühenda seadmega...</p>
+            </div>
+        </section>
+
+        <!-- Saved Workouts Card -->
+        <section class="card">
+            <h2>Salvestatud treeningud</h2>
+            <div id="workouts" class="workouts-list">
+                <p class="placeholder">Treeninguid pole veel salvestatud</p>
+            </div>
+            <button id="exportBtn" hidden>Ekspordi CSV</button>
+            <button id="exportRawBtn" hidden>Ekspordi raw data (JSON)</button>
+        </section>
+
+        <!-- Log Card -->
+        <section class="card">
+            <h2>Logi</h2>
+            <div id="log"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>FTMS = Fitness Machine Service (Bluetooth standard)</p>
+        <p><a href="https://www.bluetooth.com/specifications/specs/fitness-machine-service-1-0/" target="_blank" rel="noopener">FTMS spetsifikatsioon</a></p>
+    </footer>
+
+    <script src="ftms.js"></script>
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
