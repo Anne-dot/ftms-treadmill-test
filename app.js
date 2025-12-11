@@ -73,10 +73,17 @@ async function connect() {
         log('Otsin Bluetooth seadmeid...');
         setStatus('Otsin seadmeid...', 'searching');
 
-        device = await navigator.bluetooth.requestDevice({
+        // Timeout for Bluetooth search (30 seconds)
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Timeout: seadmeid ei leitud 30 sekundi jooksul')), 30000);
+        });
+
+        const devicePromise = navigator.bluetooth.requestDevice({
             filters: [{ services: [FTMS.SERVICE] }],
             optionalServices: [FTMS.SERVICE, 0x180D, 0x180F, 0x180A]
         });
+
+        device = await Promise.race([devicePromise, timeoutPromise]);
 
         log(`Leitud seade: ${device.name || 'Nimetu'}`, 'success');
         device.addEventListener('gattserverdisconnected', onDisconnected);
