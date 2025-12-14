@@ -784,7 +784,7 @@ function updateHRDisplay(data) {
 }
 
 function updateHRUI(connected) {
-    if (elements.connectHRBtn) elements.connectHRBtn.hidden = connected;
-    if (elements.disconnectHRBtn) elements.disconnectHRBtn.hidden = !connected;
+    if (elements.connectHRBtn) elements.connectHRBtn.disabled = connected;
+    if (elements.disconnectHRBtn) elements.disconnectHRBtn.disabled = !connected;
     if (elements.hrCard) elements.hrCard.hidden = !connected;
 }
