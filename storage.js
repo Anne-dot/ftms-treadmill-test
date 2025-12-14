@@ -193,54 +193,58 @@ function downloadRawDataJSON() {
 }
 
 /**
- * Export ALL localStorage data as single JSON file
- * Includes: workouts, raw data, errors, current state, HR data
+ * Export ALL localStorage data as 3 separate files
+ * Downloads: HR data, Raw data, Session data
  */
 function exportAllData() {
-    const allData = {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+
+    // 1. HR Data
+    const hrData = {
         exportTimestamp: new Date().toISOString(),
-        session: typeof session !== 'undefined' ? session : null,
-        connectionState: typeof connectionState !== 'undefined' ? connectionState : null,
-        workouts: getWorkouts(),
-        rawData: getRawData(),
-        // Heart Rate data
-        hrData: typeof hrData !== 'undefined' ? hrData : [],
-        hrConnected: typeof hrConnected !== 'undefined' ? hrConnected : false,
-        currentHeartRate: typeof currentHeartRate !== 'undefined' ? currentHeartRate : null,
-        errors: JSON.parse(localStorage.getItem('ftms_errors') || '[]'),
-        sessionEvents: JSON.parse(localStorage.getItem('ftms_session_events') || '[]'),
-        // Include any other ftms_ keys
-        allKeys: {}
+        hrData: typeof window.hrData !== 'undefined' ? window.hrData : [],
+        hrConnected: typeof window.hrConnected !== 'undefined' ? window.hrConnected : false,
+        currentHeartRate: typeof window.currentHeartRate !== 'undefined' ? window.currentHeartRate : null
     };
+    downloadJSON(hrData, `hr_data_${timestamp}.json`);
 
-    // Grab all ftms_ prefixed localStorage items
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('ftms_')) {
-            try {
-                allData.allKeys[key] = JSON.parse(localStorage.getItem(key));
-            } catch {
-                allData.allKeys[key] = localStorage.getItem(key);
-            }
-        }
-    }
+    // 2. Raw Data (FTMS debug)
+    const rawData = {
+        exportTimestamp: new Date().toISOString(),
+        rawData: getRawData()
+    };
+    downloadJSON(rawData, `ftms_raw_${timestamp}.json`);
 
-    const json = JSON.stringify(allData, null, 2);
+    // 3. Session Data (workouts, errors, events)
+    const sessionData = {
+        exportTimestamp: new Date().toISOString(),
+        session: typeof window.session !== 'undefined' ? window.session : null,
+        connectionState: typeof window.connectionState !== 'undefined' ? window.connectionState : null,
+        workouts: getWorkouts(),
+        errors: JSON.parse(localStorage.getItem('ftms_errors') || '[]'),
+        sessionEvents: JSON.parse(localStorage.getItem('ftms_session_events') || '[]')
+    };
+    downloadJSON(sessionData, `session_data_${timestamp}.json`);
+
+    console.log('3 faili alla laaditud:', {
+        hrEntries: hrData.hrData.length,
+        rawEntries: rawData.rawData.length,
+        workouts: sessionData.workouts.length
+    });
+}
+
+/**
+ * Helper: Download JSON data as file
+ */
+function downloadJSON(data, filename) {
+    const json = JSON.stringify(data, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement('a');
     link.href = url;
-    link.download = `ftms_full_export_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+    link.download = filename;
     link.click();
-
     URL.revokeObjectURL(url);
-
-    console.log('Full export done:', {
-        workouts: allData.workouts.length,
-        rawData: allData.rawData.length,
-        errors: allData.errors.length
-    });
 }
 
 /**
