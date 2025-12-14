@@ -37,7 +37,19 @@
         <!-- Connection Card -->
         <section class="card" id="connectionCard">
             <div id="status" class="status waiting">Ootab ühendust...</div>
-            <button id="connectBtn">Ühenda jooksulindiga</button>
+
+            <div class="machine-filter">
+                <label>Otsi masinatüüpi:</label>
+                <select id="machineFilter">
+                    <option value="all">Kõik FTMS masinad</option>
+                    <option value="treadmill" selected>Ainult jooksulint</option>
+                    <option value="rower">Ainult sõudemasin</option>
+                    <option value="bike">Ainult velotrenažöör</option>
+                    <option value="cross">Ainult elliptiline</option>
+                </select>
+            </div>
+
+            <button id="connectBtn">Ühenda masinaga</button>
             <button id="disconnectBtn" disabled>Katkesta ühendus</button>
         </section>
 
@@ -85,6 +97,8 @@
             </div>
             <button id="exportBtn" hidden>Ekspordi CSV</button>
             <button id="exportRawBtn" hidden>Ekspordi raw data (JSON)</button>
+            <button id="exportAllBtn">Ekspordi kõik andmed</button>
+            <button id="debugBtn" class="debug-btn">Debug info</button>
         </section>
 
         <!-- Log Card -->

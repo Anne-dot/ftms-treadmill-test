@@ -122,13 +122,15 @@ function downloadWorkoutsCSV() {
  * @param {string} charUuid - Characteristic UUID
  * @param {Uint8Array} rawBytes - Raw data bytes
  * @param {Object} parsed - Parsed result (or null if failed)
+ * @param {string} machineType - Machine type name (optional)
  */
-function saveRawData(charUuid, rawBytes, parsed) {
+function saveRawData(charUuid, rawBytes, parsed, machineType = null) {
     try {
         const rawLog = getRawData();
 
         rawLog.push({
             timestamp: new Date().toISOString(),
+            machineType: machineType,
             characteristic: charUuid,
             hex: Array.from(rawBytes).map(b => b.toString(16).padStart(2, '0')).join(' '),
             bytes: Array.from(rawBytes),
@@ -188,6 +190,53 @@ function downloadRawDataJSON() {
     link.click();
 
     URL.revokeObjectURL(url);
+}
+
+/**
+ * Export ALL localStorage data as single JSON file
+ * Includes: workouts, raw data, errors, current state
+ */
+function exportAllData() {
+    const allData = {
+        exportTimestamp: new Date().toISOString(),
+        session: typeof session !== 'undefined' ? session : null,
+        connectionState: typeof connectionState !== 'undefined' ? connectionState : null,
+        workouts: getWorkouts(),
+        rawData: getRawData(),
+        errors: JSON.parse(localStorage.getItem('ftms_errors') || '[]'),
+        sessionEvents: JSON.parse(localStorage.getItem('ftms_session_events') || '[]'),
+        // Include any other ftms_ keys
+        allKeys: {}
+    };
+
+    // Grab all ftms_ prefixed localStorage items
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('ftms_')) {
+            try {
+                allData.allKeys[key] = JSON.parse(localStorage.getItem(key));
+            } catch {
+                allData.allKeys[key] = localStorage.getItem(key);
+            }
+        }
+    }
+
+    const json = JSON.stringify(allData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `ftms_full_export_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    console.log('Full export done:', {
+        workouts: allData.workouts.length,
+        rawData: allData.rawData.length,
+        errors: allData.errors.length
+    });
 }
 
 /**

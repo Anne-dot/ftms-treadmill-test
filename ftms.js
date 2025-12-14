@@ -11,11 +11,29 @@ const FTMS = {
     SERVICE: 0x1826,
     CHARS: {
         TREADMILL_DATA: '00002acd-0000-1000-8000-00805f9b34fb',
+        ROWER_DATA: '00002ad1-0000-1000-8000-00805f9b34fb',
+        INDOOR_BIKE_DATA: '00002ad2-0000-1000-8000-00805f9b34fb',
+        CROSS_TRAINER_DATA: '00002ad3-0000-1000-8000-00805f9b34fb',
+        STEP_CLIMBER_DATA: '00002ad4-0000-1000-8000-00805f9b34fb',
+        STAIR_CLIMBER_DATA: '00002ad5-0000-1000-8000-00805f9b34fb',
         CONTROL_POINT: '00002ad9-0000-1000-8000-00805f9b34fb',
         MACHINE_STATUS: '00002ada-0000-1000-8000-00805f9b34fb',
         MACHINE_FEATURE: '00002acc-0000-1000-8000-00805f9b34fb'
     }
 };
+
+const MACHINE_TYPES = {
+    '00002acd-0000-1000-8000-00805f9b34fb': 'Treadmill (jooksulint)',
+    '00002ad1-0000-1000-8000-00805f9b34fb': 'Rower (sõudemasin)',
+    '00002ad2-0000-1000-8000-00805f9b34fb': 'Indoor Bike (velotrenažöör)',
+    '00002ad3-0000-1000-8000-00805f9b34fb': 'Cross Trainer (elliptiline)',
+    '00002ad4-0000-1000-8000-00805f9b34fb': 'Step Climber',
+    '00002ad5-0000-1000-8000-00805f9b34fb': 'Stair Climber'
+};
+
+function getMachineType(uuid) {
+    return MACHINE_TYPES[uuid] || null;
+}
 
 /**
  * Known Bluetooth service UUIDs for display
